@@ -10,7 +10,7 @@ class FilmItem extends React.Component {
 
                 <View>
                     <Image 
-                    source={{uri:'http://fr.web.img6.acsta.net/c_215_290/pictures/17/10/10/04/58/2061488.jpg'}}
+                    source={{uri:''}}
                     style={styles.image}
                     />
                 </View>
