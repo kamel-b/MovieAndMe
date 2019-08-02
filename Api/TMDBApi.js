@@ -10,7 +10,6 @@ export const getFilmsFromApiWithSearchedText =  async (text) => {
     return res.data
     
 }
-
 // With fetch method
 
 
@@ -22,4 +21,8 @@ export const getFilmsFromApiWithSearchedText =  async (text) => {
 //         .then((response) => response.json())
 //         .catch((error) => console.error(error))
 // }
+
+export const getImageMovie = (path) => {
+    return 'https://image.tmdb.org/t/p/w300' + path
+}
 
