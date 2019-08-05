@@ -55,7 +55,6 @@ class Search extends React.Component {
 
 
     render() {
-        console.log('ma state chargement',this.state.isLoading);
         
         return (
             
