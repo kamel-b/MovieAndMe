@@ -1,6 +1,5 @@
 import React from 'react'
 import {StyleSheet, View, Button, TextInput, Image , FlatList} from 'react-native'
-import filmsData from '../Helpers/filmsData'
 import FilmItem from './FilmItem'
 import { getFilmsFromApiWithSearchedText }from '../Api/TMDBApi'
 
@@ -9,17 +8,32 @@ import { getFilmsFromApiWithSearchedText }from '../Api/TMDBApi'
 class Search extends React.Component {
 
 
-    state = { 
-        films : [] 
+    constructor(props) {
+        super(props)
+
+        this.searchedText = ""
+
+        this.state = { 
+            films : [],
+        }
+        
     }
-    
+
 
 
     _loadFilms() {
-        getFilmsFromApiWithSearchedText('star')
-            .then(data => this.setState({ films : data.results }))
+        if(this.searchedText.length > 0) {
+            getFilmsFromApiWithSearchedText(this.searchedText)
+                .then(data => this.setState({ films : data.results }))
+            
+        }
+        
             
         
+    }
+    
+    _searchTextInputChanged(text) {
+        this.searchedText = text
     }
 
 
@@ -29,7 +43,7 @@ class Search extends React.Component {
         return (
             
             <View style ={styles.main_container}>
-                <TextInput style ={styles.textinput} placeholder='Titre du film'/>
+                <TextInput style ={styles.textinput} placeholder='Titre du film' onChangeText={(text) => this._searchTextInputChanged(text)}/>
                 <Button style ={{ height: 50,}} title='Rechercher' onPress={() => this._loadFilms()}/>
                 <FlatList
                     data={this.state.films}
