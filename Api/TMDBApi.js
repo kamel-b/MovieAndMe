@@ -26,3 +26,4 @@ export const getImageMovie = (path) => {
     return 'https://image.tmdb.org/t/p/w300' + path
 }
 
+

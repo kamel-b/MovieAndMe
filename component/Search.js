@@ -28,8 +28,8 @@ class Search extends React.Component {
         this.setState({ isLoading : true })
         if(this.searchedText.length > 0) {
             getFilmsFromApiWithSearchedText(this.searchedText, this.page+1).then(data => {
-                this.page = data.page
-                this.totalPages = data.total_pages
+                this.page = data.page //  get page
+                this.totalPages = data.total_pages // get total page 1 page = 20 items(movie)
                 this.setState({ 
                     films : [...this.state.films, ...data.results], // or we can use film : this.state.film.concat(data.results)
                     isLoading : false 
@@ -37,14 +37,14 @@ class Search extends React.Component {
             })
             
         }
-        
-            
+                 
         
     }
     
     _searchTextInputChanged(text) {
         this.searchedText = text
     }
+
 
     _displayLoading() { // Handle loading 
         if(this.state.isLoading) {
@@ -66,12 +66,21 @@ class Search extends React.Component {
         })
     }
 
+    _displayDetailForFilm = (idFilm) => {
+
+        console.log('Display film avec id' + idFilm);
+        this.props.navigation.navigate("FilmDetail", {
+             idFilm : idFilm,  
+            })        
+    }
 
     render() {
+       
         
         return (
             
             <View style ={styles.main_container}>
+
                 <TextInput style ={styles.textinput} 
                 placeholder='Titre du film' 
                 onSubmitEditing={() => this._searchFilms()}  
@@ -81,15 +90,16 @@ class Search extends React.Component {
                 <FlatList
                     data={this.state.films}
                     keyExtractor={(item) => item.id.toString()}
-                    renderItem={({item}) => <FilmItem film={item}/>}
+                    renderItem={({item}) => <FilmItem film={item} displayDetailForFilm={this._displayDetailForFilm}/>}
                     onEndReachedThreshold={0.5} 
                     onEndReached ={() => {
-                        if(this.page < this.totalPages) {
+                        if(this.page < this.totalPages) { // if page is < to totalPage we load movie
                             this._loadFilms()
                         }
                     }}
                 />
                 {this._displayLoading()}
+                
             </View>
 
             )
@@ -101,7 +111,6 @@ class Search extends React.Component {
 const styles = StyleSheet.create({
 
     main_container : {
-        marginTop: 40,
         flex : 1,
     },
     
@@ -109,6 +118,7 @@ const styles = StyleSheet.create({
         marginLeft : 5 ,
         marginRight: 5 ,
         marginBottom : 10,
+        marginTop: 10,
         height : 50,
         borderColor :'#000000',
         borderWidth: 1,
