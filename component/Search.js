@@ -1,6 +1,5 @@
 import React from 'react'
-import {StyleSheet, View, Button, TextInput, Image , FlatList} from 'react-native'
-import filmsData from '../Helpers/filmsData'
+import {StyleSheet, View, Button, TextInput, ActivityIndicator ,Text, FlatList} from 'react-native'
 import FilmItem from './FilmItem'
 import { getFilmsFromApiWithSearchedText }from '../Api/TMDBApi'
 
@@ -9,17 +8,48 @@ import { getFilmsFromApiWithSearchedText }from '../Api/TMDBApi'
 class Search extends React.Component {
 
 
-    state = { 
-        films : [] 
+    constructor(props) {
+        super(props)
+
+        this.searchedText = ""
+
+        this.state = { 
+            films : [],
+            isLoading : false
+        }
+        
     }
-    
+
 
 
     _loadFilms() {
-        getFilmsFromApiWithSearchedText('star')
-            .then(data => this.setState({ films : data.results }))
+        this.setState({ isLoading : true })
+        if(this.searchedText.length > 0) {
+            getFilmsFromApiWithSearchedText(this.searchedText).then(data => 
+                this.setState({ 
+                    films : data.results,
+                    isLoading : false 
+                })
+            )
+            
+        }
+        
             
         
+    }
+    
+    _searchTextInputChanged(text) {
+        this.searchedText = text
+    }
+
+    _displayLoading() { // Handle loading 
+        if(this.state.isLoading) {
+            return(
+                <View style={styles.loading_container}>
+                    <ActivityIndicator size='large' color='#0000ff' />
+                </View>
+            )
+        }
     }
 
 
@@ -29,13 +59,14 @@ class Search extends React.Component {
         return (
             
             <View style ={styles.main_container}>
-                <TextInput style ={styles.textinput} placeholder='Titre du film'/>
-                <Button style ={{ height: 50,}} title='Rechercher' onPress={() => this._loadFilms()}/>
+                <TextInput style ={styles.textinput} placeholder='Titre du film' onSubmitEditing={() => this._loadFilms()}  onChangeText={(text) => this._searchTextInputChanged(text)}/>
+                <Button style ={{ height: 50,}} title='Rechercher' onPress={() => this._loadFilms()} />
                 <FlatList
                     data={this.state.films}
                     keyExtractor={(item) => item.id.toString()}
                     renderItem={({item}) => <FilmItem film={item} />}
                 />
+                {this._displayLoading()}
             </View>
 
             )
@@ -59,6 +90,17 @@ const styles = StyleSheet.create({
         borderColor :'#000000',
         borderWidth: 1,
         paddingLeft:5
+    },
+
+    loading_container : {
+        position : 'absolute',
+        left : 0,
+        right : 0,
+        top : 90,
+        bottom : 0,
+        alignItems : 'center',
+        color: 'red',
+        justifyContent : 'center'
     }
 })
 
