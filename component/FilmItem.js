@@ -7,9 +7,9 @@ import {getImageMovie} from '../Api/TMDBApi'
 
 class FilmItem extends React.Component {
     render() {
-        const {film, displayDetailForFilm } = this.props
+        const { film, displayDetailForFilm } = this.props
         return(
-            <TouchableOpacity style={styles.main_container} onPress={()=> displayDetailForFilm(film.id)}>
+            <TouchableOpacity style={styles.main_container}  onPress={()=> displayDetailForFilm(film.id)}>
 
                 <View>
                     <Image 
