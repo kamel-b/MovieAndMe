@@ -30,6 +30,9 @@ class Search extends React.Component {
             getFilmsFromApiWithSearchedText(this.searchedText, this.page+1).then(data => {
                 this.page = data.page //  get page
                 this.totalPages = data.total_pages // get total page 1 page = 20 items(movie)
+                // console.log('Page : ' + this.page);
+                // console.log('Total page : ' +this.totalPages);
+                
                 this.setState({ 
                     films : [...this.state.films, ...data.results], // or we can use film : this.state.film.concat(data.results)
                     isLoading : false 
@@ -68,11 +71,13 @@ class Search extends React.Component {
 
     _displayDetailForFilm = (idFilm) => {
 
-        console.log('Display film avec id' + idFilm);
+        // console.log('Display film avec id' + idFilm);
         this.props.navigation.navigate("FilmDetail", {
              idFilm : idFilm,  
             })        
     }
+
+    
 
     render() {
        

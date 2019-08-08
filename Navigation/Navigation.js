@@ -14,7 +14,7 @@ const SearchStackNavigator = createStackNavigator({
     FilmDetail : {
         screen : FilmDetail,
     },
-    
+   
 })
 
 
