@@ -52,9 +52,6 @@ class FilmDetail extends React.Component {
             const realeaseDate = moment(film.release_date).format('DD/MM/YYYY')
             
             const budget = numeral(film.budget).format('0,0[.]00$')
-            
-            
-            
 
             return(
                 <ScrollView>
@@ -63,6 +60,7 @@ class FilmDetail extends React.Component {
                     style={styles.image}
                     source={{ uri: getImageMovie(film.backdrop_path) }}
                     />
+
                      <Text style={styles.title}>{film.title}</Text>
                      <Text style={styles.overview}>{film.overview}</Text>
 

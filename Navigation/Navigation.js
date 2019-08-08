@@ -1,7 +1,6 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation'
 import Search from '../component/Search'
 import FilmDetail from '../component/FilmDetail'
-import NewWindow from '../component/NewWindow'
 
 
 
