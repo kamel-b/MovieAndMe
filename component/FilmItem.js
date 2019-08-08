@@ -6,8 +6,23 @@ import {getImageMovie} from '../Api/TMDBApi'
 
 
 class FilmItem extends React.Component {
+
+    _displayFavoriteImage() {
+        if(this.props.isFilmFavorite) {
+            var sourceImage = require('../Images/ic_favorite.png')
+            return (
+                <Image style={styles.favorite_image}
+                       source={sourceImage}>
+
+                </Image>
+            )
+        }
+    }
+
+
     render() {
-        const { film, displayDetailForFilm } = this.props
+        const { film, displayDetailForFilm, isFilmFavorite} = this.props
+        
         return(
             <TouchableOpacity style={styles.main_container}  onPress={()=> displayDetailForFilm(film.id)}>
 
@@ -20,6 +35,7 @@ class FilmItem extends React.Component {
 
                 <View style={styles.container}>
                     <View style={styles.header}>
+                        {this._displayFavoriteImage()}
                         <Text style={styles.title_text}>{film.title}</Text>
                         <Text style={styles.vote_text}>{film.vote_average}</Text>
                     </View>
@@ -85,9 +101,16 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end',
         paddingBottom: 5,
         fontSize: 14,
+    },
+    favorite_image :{
+        width: 25,
+        height: 25,
+        margin: 5,
+
     }
 
 })
+
 
 
 
