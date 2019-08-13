@@ -34,6 +34,7 @@ class FilmItem extends React.Component {
                 </View>
 
                 <View style={styles.container}>
+
                     <View style={styles.header}>
                         {this._displayFavoriteImage()}
                         <Text style={styles.title_text}>{film.title}</Text>
@@ -47,6 +48,7 @@ class FilmItem extends React.Component {
                     <View style={styles.footer}>
                         <Text>{film.release_date}</Text>
                     </View>
+                    
                 </View>
 
             </TouchableOpacity>
