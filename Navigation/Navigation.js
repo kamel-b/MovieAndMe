@@ -5,55 +5,61 @@ import Search from '../component/Search'
 import FilmDetail from '../component/FilmDetail'
 import Favorites from '../component/Favorites'
 
-
-
 const SearchStackNavigator = createStackNavigator({
-    Search : {
-        screen : Search,
-        navigationOptions : {
-            title : 'Rechercher'
-        }
-    },
-    FilmDetail : {
-        screen : FilmDetail,
-    },
-   
+  Search: {
+    screen: Search,
+    navigationOptions: {
+      title: 'Rechercher'
+    }
+  },
+  FilmDetail: {
+    screen: FilmDetail
+  }
+})
+
+const FavoritesStackNavigator = createStackNavigator({
+  Favorites: {
+    screen: Favorites,
+    navigationOptions: {
+      title: 'Favoris'
+    }
+  },
+  FilmDetail: {
+    screen: FilmDetail
+  }
 })
 
 const MoviesTabNavigator = createBottomTabNavigator(
-
-    {
-      Search: {
-        screen: SearchStackNavigator,
-        navigationOptions: {
-          tabBarIcon: () => { 
-            return <Image
-              source={require('../Images/ic_search.png')}
-              style={styles.icon}/> 
-          }
-        }
-      },
-
-      Favorites: {
-        screen: Favorites,
-        navigationOptions: {
-          tabBarIcon: () => {
-            return <Image
-              source={require('../Images/ic_favorite.png')}
-              style={styles.icon}/>
-          }
+  {
+    Search: {
+      screen: SearchStackNavigator,
+      navigationOptions: {
+        tabBarIcon: () => {
+          return <Image
+            source={require('../Images/ic_search.png')}
+            style={styles.icon}/>
         }
       }
     },
-
-    {
-      tabBarOptions: {
-        activeBackgroundColor: '#DDDDDD', 
-        inactiveBackgroundColor: '#FFFFFF', 
-        showLabel: false,
+    Favorites: {
+      screen: FavoritesStackNavigator,
+      navigationOptions: {
+        tabBarIcon: () => {
+          return <Image
+            source={require('../Images/ic_favorite.png')}
+            style={styles.icon}/>
+        }
       }
-
     }
+  },
+  {
+    tabBarOptions: {
+      activeBackgroundColor: '#DDDDDD',
+      inactiveBackgroundColor: '#FFFFFF',
+      showLabel: false,
+      showIcon: true
+    }
+  }
 )
 
 const styles = StyleSheet.create({
