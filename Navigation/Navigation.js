@@ -30,17 +30,20 @@ const FavoritesStackNavigator = createStackNavigator({
   }
 })
 
-// const TestStackNavigator = createStackNavigator({
-//   Test : {
-//     screen : Test,
-//     navigationOptions :{
-//       title : 'Test '
-//     }
-//   }
-// })
+const TestStackNavigator = createStackNavigator({
+  Test : {
+    screen : Test,
+    navigationOptions :{
+      title : 'Test '
+    }
+  }
+})
 
 const MoviesTabNavigator = createBottomTabNavigator(
   {
+    Test : {
+      screen : TestStackNavigator
+    },
     Search: {
       screen: SearchStackNavigator,
       navigationOptions: {
@@ -61,9 +64,6 @@ const MoviesTabNavigator = createBottomTabNavigator(
         }
       }
     },
-    // Test : {
-    //   screen : TestStackNavigator
-    // }
 
   },
   {

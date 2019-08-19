@@ -9,3 +9,6 @@ npm-debug.*
 *.orig.*
 web-build/
 web-report/
+component/HelloWorld.android.js
+component/HelloWorld.ios.js
+component/Test.js
