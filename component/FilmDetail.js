@@ -4,6 +4,7 @@ import { getFilmDetailFromApi, getImageMovie } from '../Api/TMDBApi'
 import moment from 'moment'
 import numeral from 'numeral'
 import { connect } from 'react-redux'
+import EnlargeShrink from '../Animations/EnlargeShrink'
 
 
 
@@ -14,7 +15,7 @@ class FilmDetail extends React.Component {
         
         this.state = {
             film : undefined,
-            isLoading: true
+            isLoading: false
         }
     }
 
@@ -110,13 +111,17 @@ class FilmDetail extends React.Component {
     
     _displayFavoriteImage (){
         var sourceImage = require('../Images/ic_favorite_border.png')
+        var shouldEnlarge = false
         if(this.props.favoritesFilm.findIndex(item => item.id === this.state.film.id) !== -1) {
             sourceImage = require('../Images/ic_favorite.png')
+            shouldEnlarge = true
         }
         return (
-            <Image style={styles.favorite_image}
-                   source={sourceImage}  
-            />
+            <EnlargeShrink shouldEnlarge={shouldEnlarge}>
+                <Image style={styles.favorite_image}
+                       source={sourceImage}  
+                />
+            </EnlargeShrink>
         )
     }
 
@@ -168,7 +173,6 @@ class FilmDetail extends React.Component {
 
 
     render(){
-        
         return(
             
             <View style={styles.main_container}>
@@ -199,7 +203,7 @@ const styles = StyleSheet.create({
     },
     title : {
         fontSize: 35,
-        fontStyle: 'bold',
+        fontWeight: 'bold',
         textAlign: 'center',
         flex: 1,
         marginLeft : 5,
@@ -212,8 +216,9 @@ const styles = StyleSheet.create({
         flex : 1
     },
     favorite_image : {
-        width: 40,
-        height: 40,
+        flex : 1,
+        width: null,
+        height: null,
     },
     overview : {
         fontStyle: "italic",
@@ -244,7 +249,7 @@ const styles = StyleSheet.create({
         right: 30,
         bottom: 30,
         borderRadius: 30,
-        backgroundColor: '#e91e63',
+        backgroundColor: 'blue',
         justifyContent: 'center',
         alignItems : 'center'
     },
