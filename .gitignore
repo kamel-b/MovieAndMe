@@ -12,3 +12,7 @@ web-report/
 component/HelloWorld.android.js
 component/HelloWorld.ios.js
 component/Test.js
+.gradle
+.idea
+android/
+ios/
