@@ -25,6 +25,8 @@ class FilmList extends React.Component {
 
 
     render() {
+        console.log('coucou');
+        
         return (
             <FlatList 
                 style={style.list}
@@ -59,7 +61,7 @@ const style = StyleSheet.create({
 const mapStateToProps = (state) => {
 
     return {
-        favoritesFilm : state.favoritesFilm
+        favoritesFilm : state.toggleFavorite.favoritesFilm
     }
 }
 
