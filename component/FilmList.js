@@ -25,8 +25,7 @@ class FilmList extends React.Component {
 
 
     render() {
-        console.log('coucou');
-        
+            
         return (
             <FlatList 
                 style={style.list}

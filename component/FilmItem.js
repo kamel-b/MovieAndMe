@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
         fontSize : 20,
         flexWrap :'wrap',
         flex: 1,
-        paddingRight: 5
+        paddingRight: 5,
     },
     vote_text:{
         color: '#666666',
