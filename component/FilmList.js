@@ -2,6 +2,8 @@ import React from 'react'
 import {StyleSheet, FlatList } from 'react-native'
 import FilmItem from './FilmItem'
 import { connect } from 'react-redux'
+import MovieSeen from './MovieSeen';
+import MoviesSeenItem from './MovieSeenItem';
 
 
 
@@ -21,7 +23,7 @@ class FilmList extends React.Component {
         })
     }
 
-
+    
 
 
     render() {
@@ -36,8 +38,7 @@ class FilmList extends React.Component {
                     <FilmItem
                         film={item}
                         isFilmFavorite={(this.props.favoritesFilm.findIndex(film => film.id === item.id) !== -1) ? true : false}
-                        displayDetailForFilm={this._displayDetailForFilm}
-                        />
+                        displayDetailForFilm={this._displayDetailForFilm}/>
                 )}
                 onEndReachedThreshold={0.5}
                 onEndReached={()=> {

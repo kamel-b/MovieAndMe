@@ -6,6 +6,7 @@ import FilmDetail from '../component/FilmDetail'
 import Favorites from '../component/Favorites'
 import Test from '../component/Test'
 import News from '../component/News'
+import MovieSeen from '../component/MovieSeen'
 
 
 
@@ -39,6 +40,18 @@ const NewsStackNavigator = createStackNavigator({
     navigationOptions :{
       title: 'News'
     }
+  }
+})
+
+const MovieSeenStackNavigator = createStackNavigator({
+  MovieSeen: {
+    screen : MovieSeen,
+    navigationOptions : {
+      title: 'Mes Films Vu '
+    }
+  },
+  FilmDetail:{
+    screen: FilmDetail
   }
 })
 
@@ -77,11 +90,22 @@ const MoviesTabNavigator = createBottomTabNavigator(
       }
     },
     News : {
-      screen: News,
+      screen: NewsStackNavigator,
       navigationOptions : {
         tabBarIcon: () => {
           return <Image
             source={require('../Images/ic_fiber_new.png')}
+            style={styles.icon}/>
+        }
+      }
+    },
+
+    MovieSeen : {
+      screen : MovieSeenStackNavigator,
+      navigationOptions : {
+        tabBarIcon: () => {
+          return <Image 
+            source={require('../Images/ic_check.png')}
             style={styles.icon}/>
         }
       }

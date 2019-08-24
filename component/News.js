@@ -22,9 +22,7 @@ class News extends React.Component {
 
     _loadNewsMovie = () =>{
         this.setState({ isLoading : true })
-        getNewMovies(this.page+1).then(data => {
-            console.log('ma data', data);
-            
+        getNewMovies(this.page+1).then(data => {            
             this.page = data.page
             this.totalPages = data.total_pages
             this.setState({

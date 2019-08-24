@@ -14,7 +14,6 @@ class FilmItem extends React.Component {
             return (
                 <Image style={styles.favorite_image}
                        source={sourceImage}>
-
                 </Image>
             )
         }
