@@ -15,7 +15,7 @@ class Avatar extends React.Component {
 
         ImagePicker.showImagePicker({}, (response) => {
             if (response.didCancel) {
-                console.log('annnuler par user');
+                console.log('cancel by user');
                 
             }
             else if (response.error) {
@@ -23,7 +23,7 @@ class Avatar extends React.Component {
                 
             }
             else{
-                console.log('photo : ', response.uri);
+                // console.log('photo : ', response.uri);
                 let requireSource = { uri : response.uri}
                 const action = {
                     type: "SET_AVATAR",
@@ -37,7 +37,7 @@ class Avatar extends React.Component {
     }
 
 
-    render() {
+    render() {        
         return (
             <TouchableOpacity 
                 style={styles.touchableOpacity}
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
         width:100,
         height: 100,
         borderRadius : 50,
-        borderColor: 'blue',
+        borderColor: 'black',
         borderWidth : 2
 
     }
@@ -71,7 +71,9 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = (state) => {
+    
     return {
+        
         avatar : state.setAvatar.avatar
     }
 }

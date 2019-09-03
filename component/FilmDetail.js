@@ -1,5 +1,5 @@
 import React from 'react'
-import{ StyleSheet, View, Text, Image, ActivityIndicator, ScrollView, TouchableOpacity, Share, Platform } from 'react-native'
+import{ StyleSheet, View, Text, Image, ActivityIndicator, ScrollView, TouchableOpacity, Share, Platform , Button} from 'react-native'
 import { getFilmDetailFromApi, getImageMovie } from '../Api/TMDBApi'
 import moment from 'moment'
 import numeral from 'numeral'
@@ -15,6 +15,7 @@ class FilmDetail extends React.Component {
         
         this.state = {
             film : undefined,
+            moviesSeen: [],
             isLoading: false
         }
     }
@@ -47,12 +48,21 @@ class FilmDetail extends React.Component {
 
         const favoriteFilmIndex = this.props.favoritesFilm.findIndex(item => item.id === this.props.navigation.state.params.idFilm)
 
+        const moviesSeenIndex = this.props.moviesSeen.findIndex(item => item.id === this.props.navigation.state.params.idFilm)
+
+
         if(favoriteFilmIndex !== -1){
             this.setState({
                 film : this.props.favoritesFilm[favoriteFilmIndex]
             },()=>{this._updateNavigationParams()})
             return
         }
+        // if(moviesSeenIndex !== -1){
+        //     this.setState({
+        //         moviesSeen : this.props.moviesSeen[moviesSeenIndex]
+        //     },()=>{this._updateNavigationParams()})
+        //  }
+        
 
         this.setState({ isLoading: true })
         getFilmDetailFromApi(this.props.navigation.state.params.idFilm).then(data => {
@@ -107,6 +117,24 @@ class FilmDetail extends React.Component {
         this.props.dispatch(action)
     }
 
+    _toggleMovieSeen() {
+        const action ={
+            type:'TOGGLE_MOVIES_SEEN',
+            value : this.state.film
+        }
+        this.props.dispatch(action)
+    }
+
+    _handleButtonSeen() {
+        const moviesSeenIndex = this.props.moviesSeen.findIndex(item => item.id === this.state.film.id)
+        if( moviesSeenIndex !== -1) {
+            return 'Non Vu'
+        }
+        else {
+            return 'Marquer comme vu'
+        }
+    }
+
 
     
     _displayFavoriteImage (){
@@ -125,6 +153,7 @@ class FilmDetail extends React.Component {
         )
     }
 
+ 
 
     _displayFilm() {
         const {film} = this.state
@@ -165,7 +194,9 @@ class FilmDetail extends React.Component {
                          <Text>Genre(s): {genres}</Text>
                          <Text>Companie(s): {companies}</Text>
                      </View>
-                
+                    
+                    <Button style ={styles.button_seen} title={this._handleButtonSeen()} onPress={()=> this._toggleMovieSeen()}/>
+
                 </ScrollView>
             )
         }
@@ -173,6 +204,7 @@ class FilmDetail extends React.Component {
 
 
     render(){
+        
         return(
             
             <View style={styles.main_container}>
@@ -256,6 +288,9 @@ const styles = StyleSheet.create({
     share_image: {
         width: 30,
         height: 30
+    },
+    button_seen: {
+        height: 50
     }
 
 })
@@ -263,7 +298,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     return {
-        favoritesFilm: state.toggleFavorite.favoritesFilm
+        favoritesFilm: state.toggleFavorite.favoritesFilm,
+        moviesSeen : state.toggleMoviesSeen.moviesSeen
     }
 }
 

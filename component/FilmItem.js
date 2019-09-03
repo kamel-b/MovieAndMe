@@ -14,7 +14,6 @@ class FilmItem extends React.Component {
             return (
                 <Image style={styles.favorite_image}
                        source={sourceImage}>
-
                 </Image>
             )
         }
@@ -88,7 +87,7 @@ const styles = StyleSheet.create({
         fontSize : 20,
         flexWrap :'wrap',
         flex: 1,
-        paddingRight: 5
+        paddingRight: 5,
     },
     vote_text:{
         color: '#666666',
